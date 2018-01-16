@@ -23,6 +23,9 @@ namespace WpfAppLogin
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new ViewModel.WindowViewModel(this);
+
         }
     }
 }
