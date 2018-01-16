@@ -108,4 +108,10 @@ namespace WpfAppLogin.ViewModel
         }
 
     }
+
+    public class MyPasswordBox
+    {
+
+    }
+
 }
