@@ -57,6 +57,8 @@ namespace WpfAppLogin.ViewModel
 
         public GridLength TitleHeightGridLength { get { return new GridLength(TitleHeight + ResizeBorder); } }
 
+        public ApplicationPage CurrentPage { get; set; } = ApplicationPage.Login; // The current page of the application
+
 
         //Command to minimize the Window
         public ICommand MinimizeCommand { get; set; }

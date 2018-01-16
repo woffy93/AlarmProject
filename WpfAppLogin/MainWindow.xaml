@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         MinWidth="{Binding WindowMinimumWidth}"
         MinHeight="{Binding WindowMinimumHeigth}"
-        Title="Alarm Center" Height="600" Width="900"
+        Title="Alarm Center" Height="610" Width="900"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         x:Name="AppWindow"
@@ -137,6 +137,7 @@
 
     </WindowChrome.WindowChrome>
     <Grid Background="AliceBlue">
-        
+        <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}"/>
+
     </Grid>
 </Window>
