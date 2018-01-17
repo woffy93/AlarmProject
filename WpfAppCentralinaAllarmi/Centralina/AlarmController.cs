@@ -16,6 +16,8 @@ namespace WpfAppCentralinaAllarmi.Centralina
             sensors = s;
         }
 
+        public Dictionary<string, bool> sensorsToRead { get; set; }
+
         public GeoCoordinate mapCoordinates { get; set; }
         public Dictionary<string, Sensors.AbstractSensor> sensors;
 
@@ -39,11 +41,18 @@ namespace WpfAppCentralinaAllarmi.Centralina
             return sensors.ToDictionary(s => s.Key, s => s.Value.alarmState);
         }
 
-        public void allarm(string sensorID, string eventType, string note)
+        public void allarm(int sensorID, string sensorType, DateTime time)
         {
             //scrivere allarme su db remoto
             //MOCK
             Console.WriteLine("Allarme scattato");
+        }
+
+        public void allarmDeactivated(int sensorID, string sensorType, DateTime time)
+        {
+            //scrivere allarme su db remoto
+            //MOCK
+            Console.WriteLine("Allarme Disattivato");
         }
     }
 }

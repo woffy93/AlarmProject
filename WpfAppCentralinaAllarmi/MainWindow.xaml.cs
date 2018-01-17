@@ -29,7 +29,6 @@ namespace WpfAppCentralinaAllarmi
         private string[] sensorLabels = { "Antincendio", "Gas", "Antintrusione" };
         private Centralina.AlarmController controller;
         private Ellipse[] lights;
-        private SolidColorBrush brush;
 
 
         public MainWindow()
@@ -46,7 +45,6 @@ namespace WpfAppCentralinaAllarmi
             //inizializzo array luci
             lights = new Ellipse[] { Light_fire, Light_Gas, Light_Intrusion };
             //inizializzo i pennelli
-            brush = new SolidColorBrush();
             
         }
 
@@ -58,31 +56,55 @@ namespace WpfAppCentralinaAllarmi
         private void Btn_Fire_On_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[0], true);
+            controller.allarm(
+                controller.getSensorId(sensorLabels[0]),
+                sensorLabels[0],
+                DateTime.Now);
         }
 
         private void Btn_Fire_Off_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[0], false);
+            controller.allarmDeactivated(
+                controller.getSensorId(sensorLabels[0]),
+                sensorLabels[0],
+                DateTime.Now);
         }
 
         private void Btn_Gas_On_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[1], true);
+            controller.allarm(
+                controller.getSensorId(sensorLabels[1]),
+                sensorLabels[1],
+                DateTime.Now);
         }
 
         private void Btn_Gas_Off_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[1], false);
+            controller.allarmDeactivated(
+                controller.getSensorId(sensorLabels[1]),
+                sensorLabels[1],
+                DateTime.Now);
         }
 
         private void Btn_Intrusion_On_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[2], true);
+            controller.allarm(
+                controller.getSensorId(sensorLabels[2]),
+                sensorLabels[2],
+                DateTime.Now);
         }
 
         private void Btn_Intrusion_Off_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[2], false);
+            controller.allarmDeactivated(
+                controller.getSensorId(sensorLabels[2]),
+                sensorLabels[2],
+                DateTime.Now);
         }
 
         private async Task<Dictionary<string, bool>> checkSensors()
@@ -106,7 +128,7 @@ namespace WpfAppCentralinaAllarmi
             }
         }
 
-        private void setLightColor(Ellipse light, bool state, string name)
+        private void setLightColor(string name, bool state)
         {
             if (name == sensorLabels[0])
             {
@@ -116,22 +138,15 @@ namespace WpfAppCentralinaAllarmi
             }
             else if (name == sensorLabels[1])
             {
-                return lights[1];
+                Light_Gas.Fill = state ?
+                    new SolidColorBrush(Color.FromRgb(255, 0, 0)) :
+                    new SolidColorBrush(Color.FromRgb(0, 255, 0));
             }
             else
             {
-                return lights[2];
-            }
-
-            if (state == true)
-            {
-                this.brush.Color = Color.FromRgb(255, 0, 0);
-                light.Fill = brush;
-            }
-            else
-            {
-                this.brush.Color = Color.FromRgb(0, 255, 0);
-                light.Fill = brush;
+                Light_Intrusion.Fill = state ?
+                    new SolidColorBrush(Color.FromRgb(255, 0, 0)) :
+                    new SolidColorBrush(Color.FromRgb(0, 255, 0));
             }
         }
 
@@ -141,20 +156,8 @@ namespace WpfAppCentralinaAllarmi
             {
                 Dictionary<string, bool> dict = await checkSensors();
 
-                /*dict.ToList()
-                    .ForEach(t => setLightColor(findLight(t.Key), t.Value)); */
-
-                foreach(KeyValuePair<string, bool> entry in dict)
-                {
-                    if(entry.Value == true)
-                    {
-                        setLightColor(findLight(entry.Key), true);
-                    }
-                    else
-                    {
-                        setLightColor(findLight(entry.Key), false);
-                    }
-                }
+                dict.ToList()
+                    .ForEach(t => setLightColor(t.Key, t.Value)); 
             }                    
         }
     }
