@@ -4,17 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfAppLogin.CentralinaAllarmi
+namespace WpfAppLogin.Centralina
 {
     public class Sensor
     {
-        private int sensorId {get; set;}
+        private int id { get; set; }
 
-        public Sensor (int num){
+        public Sensor(int num)
+        {
             this.id = num;
         }
 
-        bool getAlarm(){
+        public bool getAlarm()
+        {
             return true;
         }
     }

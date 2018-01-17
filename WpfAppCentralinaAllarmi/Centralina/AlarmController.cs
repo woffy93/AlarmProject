@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Device.Location;
 
-namespace WpfAppLogin.CentralinaAllarmi
+namespace WpfAppLogin.Centralina
 {
     /// <summary>
     ///  classe che rappresenta la centralina controllo allarmi, connessa ai sensori
     /// </summary>
     public class AlarmController
     {
-        private GeoCoordinate mapCoordinates {get; set;}
-        private List<SensorInterface> sensors { get; set; }
+        private GeoCoordinate mapCoordinates { get; set; }
+        private List<Sensor> sensors { get; set; }
 
         // gestire caso lista nulla
-        public List<SensorInterface> readSensors()
+        public List<Sensor> readSensors()
         {
             return sensors.Where(s => s.getAlarm()).ToList();
         }
@@ -25,7 +25,7 @@ namespace WpfAppLogin.CentralinaAllarmi
         {
             //scrivere allarme su db remoto
             //MOCK
-            System.println("Allarme scattato")
+            Console.WriteLine("Allarme scattato");
         }
     }
 }
