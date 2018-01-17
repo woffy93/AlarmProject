@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Media;
 
-
 namespace MapLibrary
 {
     public interface ClientInterface
