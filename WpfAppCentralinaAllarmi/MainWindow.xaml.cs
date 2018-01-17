@@ -29,8 +29,7 @@ namespace WpfAppCentralinaAllarmi
         private string[] sensorLabels = { "Antincendio", "Gas", "Antintrusione" };
         private Centralina.AlarmController controller;
         private Ellipse[] lights;
-        private SolidColorBrush red;
-        private SolidColorBrush green;
+        private SolidColorBrush brush;
 
 
         public MainWindow()
@@ -47,10 +46,8 @@ namespace WpfAppCentralinaAllarmi
             //inizializzo array luci
             lights = new Ellipse[] { Light_fire, Light_Gas, Light_Intrusion };
             //inizializzo i pennelli
-            red = new SolidColorBrush();
-            red.Color = Color.FromArgb(0, 255, 0, 0);
-            green = new SolidColorBrush();
-            green.Color = Color.FromArgb(0, 0, 255, 0);
+            brush = new SolidColorBrush();
+            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -88,18 +85,10 @@ namespace WpfAppCentralinaAllarmi
             controller.setAlarmState(sensorLabels[2], false);
         }
 
-        /*private void checkSensors()
-        {
-            controller
-                .getAlarms()
-                .ToList()
-                .ForEach(t => setLightColor(findLight(t.Key), t.Value));
-            
-        }*/
-
         private async Task<Dictionary<string, bool>> checkSensors()
         {
-            return await Task.Run(async () => this.controller.getAlarms());
+            await Task.Delay(500);
+            return this.controller.getAlarms();
         }
 
         private Ellipse findLight(string name)
@@ -117,24 +106,56 @@ namespace WpfAppCentralinaAllarmi
             }
         }
 
-        private void setLightColor(Ellipse light, bool state)
+        private void setLightColor(Ellipse light, bool state, string name)
         {
-            
-            if (state == true)
+            if (name == sensorLabels[0])
             {
-                light.Fill = red;
+                Light_fire.Fill = state ?
+                    new SolidColorBrush(Color.FromRgb(255, 0, 0)) :
+                    new SolidColorBrush(Color.FromRgb(0, 255, 0));
+            }
+            else if (name == sensorLabels[1])
+            {
+                return lights[1];
             }
             else
             {
-                light.Fill = green;
+                return lights[2];
+            }
+
+            if (state == true)
+            {
+                this.brush.Color = Color.FromRgb(255, 0, 0);
+                light.Fill = brush;
+            }
+            else
+            {
+                this.brush.Color = Color.FromRgb(0, 255, 0);
+                light.Fill = brush;
             }
         }
 
         private async void control()
         {
-            await this.checkSensors(                      
+            while (true)
+            {
+                Dictionary<string, bool> dict = await checkSensors();
+
+                /*dict.ToList()
+                    .ForEach(t => setLightColor(findLight(t.Key), t.Value)); */
+
+                foreach(KeyValuePair<string, bool> entry in dict)
+                {
+                    if(entry.Value == true)
+                    {
+                        setLightColor(findLight(entry.Key), true);
+                    }
+                    else
+                    {
+                        setLightColor(findLight(entry.Key), false);
+                    }
+                }
+            }                    
         }
-
-
     }
 }
