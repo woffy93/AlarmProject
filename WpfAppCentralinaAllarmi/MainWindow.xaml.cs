@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Threading;
 
 namespace WpfAppCentralinaAllarmi
 {
@@ -55,8 +55,7 @@ namespace WpfAppCentralinaAllarmi
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(controlThread));
-            t.Start();
+            control();
         }
 
         private void Btn_Fire_On_Click(object sender, RoutedEventArgs e)
@@ -89,12 +88,18 @@ namespace WpfAppCentralinaAllarmi
             controller.setAlarmState(sensorLabels[2], false);
         }
 
-        private void checkSensors()
+        /*private void checkSensors()
         {
             controller
                 .getAlarms()
                 .ToList()
                 .ForEach(t => setLightColor(findLight(t.Key), t.Value));
+            
+        }*/
+
+        private async Task<Dictionary<string, bool>> checkSensors()
+        {
+            return await Task.Run(async () => this.controller.getAlarms());
         }
 
         private Ellipse findLight(string name)
@@ -114,6 +119,7 @@ namespace WpfAppCentralinaAllarmi
 
         private void setLightColor(Ellipse light, bool state)
         {
+            
             if (state == true)
             {
                 light.Fill = red;
@@ -124,13 +130,9 @@ namespace WpfAppCentralinaAllarmi
             }
         }
 
-        private void controlThread()
+        private async void control()
         {
-            while (true)
-            {
-                checkSensors();
-                Thread.Sleep(1000);
-            }
+            await this.checkSensors(                      
         }
 
 
