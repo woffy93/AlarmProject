@@ -1,4 +1,4 @@
-﻿<Page x:Class="WpfAppLogin.LoginPage"
+﻿<local:BasePage x:TypeArguments="local:LoginViewModel" x:Class="WpfAppLogin.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -35,9 +35,10 @@
                             <TextBox Tag="Email" />
 
                             <PasswordBox Tag="Password"
+                                         x:Name="PasswordText"
                                      Margin="0 0 0 30"/>
 
-                            <Button Content="Next" IsEnabled="False" HorizontalAlignment="Center" />
+                            <Button Content="Next" Command="{Binding LoginCommand}" CommandParameter="{Binding SecurePassword, ElementName=PasswordText}" HorizontalAlignment="Center" />
 
                         </StackPanel>
 
@@ -52,4 +53,4 @@
         </Grid>
 
     </Border>
-</Page>
+</local:BasePage>
