@@ -24,5 +24,40 @@ namespace WpfAppCentralinaAllarmi
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Fire_On_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Fire_Off_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Gas_On_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Gas_Off_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Intrusion_On_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_Intrusion_Off_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
