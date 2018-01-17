@@ -31,6 +31,10 @@ namespace WpfAppCentralinaAllarmi
         private Ellipse[] lights;
 
 
+        /*TODO:
+         * Controllo su db remoto per vedere quali sensori sono da controllare
+         */
+
         public MainWindow()
         {
             InitializeComponent();
@@ -48,10 +52,15 @@ namespace WpfAppCentralinaAllarmi
             
         }
 
+        //metodi per controllo UI
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             control();
         }
+
+        //i bottoni cambiano lo stato del sensore e chiamano il metodo per scrivere sul db
+        //l'attivazione/disattivazione dell'allarme
 
         private void Btn_Fire_On_Click(object sender, RoutedEventArgs e)
         {
@@ -107,6 +116,8 @@ namespace WpfAppCentralinaAllarmi
                 DateTime.Now);
         }
 
+        //Metodi helper
+
         private async Task<Dictionary<string, bool>> checkSensors()
         {
             await Task.Delay(500);
@@ -127,7 +138,7 @@ namespace WpfAppCentralinaAllarmi
                 return lights[2];
             }
         }
-
+        //metodo per le luci, a seconda dello stato le colora in modo diverso
         private void setLightColor(string name, bool state)
         {
             if (name == sensorLabels[0])
@@ -150,15 +161,25 @@ namespace WpfAppCentralinaAllarmi
             }
         }
 
+        //metodo asincrono per controllare i sensori e colorare l'UI senza bloccare tuttoo
         private async void control()
         {
             while (true)
             {
                 Dictionary<string, bool> dict = await checkSensors();
-
                 dict.ToList()
                     .ForEach(t => setLightColor(t.Key, t.Value)); 
             }                    
+        }
+  
+        /// <summary>
+        /// metodo per controllare sul db quali sensori elggere  
+        /// </summary>
+        private void checDbForSensors()
+        {
+
+
+            Console.WriteLine("querydb");
         }
     }
 }

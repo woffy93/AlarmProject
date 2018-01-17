@@ -15,8 +15,8 @@ namespace WpfAppCentralinaAllarmi.Centralina
         public AlarmController(Dictionary<string, Sensors.AbstractSensor> s) {
             sensors = s;
         }
-
-        public Dictionary<string, bool> sensorsToRead { get; set; }
+        //contiene l'elenco dei sensori attivi
+        public List<string> sensorsToRead { get; set; }
 
         public GeoCoordinate mapCoordinates { get; set; }
         public Dictionary<string, Sensors.AbstractSensor> sensors;
@@ -30,6 +30,7 @@ namespace WpfAppCentralinaAllarmi.Centralina
         {
             sensors[sensor].alarmState = state;
         }
+
         /// <summary>
         /// metodo per controllare lo stato di tutti i sensori, la centralina deve chiamarlo periodicamente
         /// nell'esercizo lo stato viene cambiato dalla centralina stessa e poi letto da questo metodo.
