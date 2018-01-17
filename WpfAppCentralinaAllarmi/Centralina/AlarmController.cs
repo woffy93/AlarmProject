@@ -5,20 +5,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Device.Location;
 
-namespace WpfAppLogin.Centralina
+namespace WpfAppCentralinaAllarmi.Centralina
 {
     /// <summary>
     ///  classe che rappresenta la centralina controllo allarmi, connessa ai sensori
     /// </summary>
     public class AlarmController
     {
-        private GeoCoordinate mapCoordinates { get; set; }
-        private List<Sensor> sensors { get; set; }
+        public AlarmController(Dictionary<string, Sensors.AbstractSensor> s) {
+            sensors = s;
+        }
 
-        // gestire caso lista nulla
-        public List<Sensor> readSensors()
+        public GeoCoordinate mapCoordinates { get; set; }
+        public Dictionary<string, Sensors.AbstractSensor> sensors;
+
+        public int getSensorId(string sensor)
         {
-            return sensors.Where(s => s.getAlarm()).ToList();
+            return sensors[sensor].sensorId;
+        }
+
+        public void setAlarmState(string sensor, bool state)
+        {
+            sensors[sensor].alarmState = state;
+        }
+        /// <summary>
+        /// metodo per controllare lo stato di tutti i sensori, la centralina deve chiamarlo periodicamente
+        /// nell'esercizo lo stato viene cambiato dalla centralina stessa e poi letto da questo metodo.
+        /// nella realtà questo metodo andrebbe a leggere uno stato determinato da avvenimenti esterni.
+        /// </summary>
+        /// <returns> dizionario che associal ad ogni sensore il suo stato</returns>
+        public Dictionary<string, bool> getAlarms()
+        {
+            return sensors.ToDictionary(s => s.Key, s => s.Value.alarmState);
         }
 
         public void allarm(string sensorID, string eventType, string note)
