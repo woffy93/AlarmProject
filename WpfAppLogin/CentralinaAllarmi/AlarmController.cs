@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Device.Location;
 
-namespace MapLibrary
+namespace WpfAppLogin.CentralinaAllarmi
 {
     /// <summary>
     ///  classe che rappresenta la centralina controllo allarmi, connessa ai sensori
     /// </summary>
     public class AlarmController
     {
-        public GeoCoordinate mapCoordinates {get; set;}
-        public List<SensorInterface> sensors { get; set; }
+        private GeoCoordinate mapCoordinates {get; set;}
+        private List<SensorInterface> sensors { get; set; }
 
         // gestire caso lista nulla
         public List<SensorInterface> readSensors()
@@ -24,6 +24,8 @@ namespace MapLibrary
         public void allarm(string sensorID, string eventType, string note)
         {
             //scrivere allarme su db remoto
+            //MOCK
+            System.println("Allarme scattato")
         }
     }
 }
