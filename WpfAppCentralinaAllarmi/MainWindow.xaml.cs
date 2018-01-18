@@ -26,9 +26,10 @@ namespace WpfAppCentralinaAllarmi
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string[] sensorLabels = { "Antincendio", "Gas", "Antintrusione" };
+        private string[] sensorLabels = { "Incendio", "Fuoriuscita di gas", "Intrusione" };
         private Centralina.AlarmController controller;
         private Ellipse[] lights;
+        private int Id = 2;
 
 
         /*TODO:
@@ -45,7 +46,8 @@ namespace WpfAppCentralinaAllarmi
                 {sensorLabels[0],  new Centralina.Sensors.FireSensor()},
                 {sensorLabels[1],  new Centralina.Sensors.GasSensor()},
                 {sensorLabels[2],  new Centralina.Sensors.IntrusionSensor()}
-            });
+            },
+                Id);
             //inizializzo array luci
             lights = new Ellipse[] { Light_fire, Light_Gas, Light_Intrusion };
             //inizializzo i pennelli
@@ -74,10 +76,6 @@ namespace WpfAppCentralinaAllarmi
         private void Btn_Fire_Off_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[0], false);
-            controller.allarmDeactivated(
-                controller.getSensorId(sensorLabels[0]),
-                sensorLabels[0],
-                DateTime.Now);
         }
 
         private void Btn_Gas_On_Click(object sender, RoutedEventArgs e)
@@ -92,10 +90,7 @@ namespace WpfAppCentralinaAllarmi
         private void Btn_Gas_Off_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[1], false);
-            controller.allarmDeactivated(
-                controller.getSensorId(sensorLabels[1]),
-                sensorLabels[1],
-                DateTime.Now);
+ 
         }
 
         private void Btn_Intrusion_On_Click(object sender, RoutedEventArgs e)
@@ -110,10 +105,6 @@ namespace WpfAppCentralinaAllarmi
         private void Btn_Intrusion_Off_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[2], false);
-            controller.allarmDeactivated(
-                controller.getSensorId(sensorLabels[2]),
-                sensorLabels[2],
-                DateTime.Now);
         }
 
         //Metodi helper
@@ -161,7 +152,7 @@ namespace WpfAppCentralinaAllarmi
             }
         }
 
-        //metodo asincrono per controllare i sensori e colorare l'UI senza bloccare tuttoo
+        //metodo asincrono per controllare i sensori e colorare l'UI senza bloccare tutto
         private async void control()
         {
             while (true)
@@ -173,9 +164,9 @@ namespace WpfAppCentralinaAllarmi
         }
   
         /// <summary>
-        /// metodo per controllare sul db quali sensori elggere  
+        /// metodo per controllare sul db quali sensori leggere  
         /// </summary>
-        private void checDbForSensors()
+        private void checkbForSensors()
         {
 
 

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Device.Location;
+using System.Data.SqlClient;
+using System.Windows;
 
 namespace WpfAppCentralinaAllarmi.Centralina
 {
@@ -12,12 +14,11 @@ namespace WpfAppCentralinaAllarmi.Centralina
     /// </summary>
     public class AlarmController
     {
-        public AlarmController(Dictionary<string, Sensors.AbstractSensor> s) {
+        public AlarmController(Dictionary<string, Sensors.AbstractSensor> s, int id) {
+            idCentralina = id;
             sensors = s;
         }
-        //contiene l'elenco dei sensori attivi
-        public List<string> sensorsToRead { get; set; }
-
+        public int idCentralina; // = a IdCasa su tabella dbo.SensoriLuogo
         public GeoCoordinate mapCoordinates { get; set; }
         public Dictionary<string, Sensors.AbstractSensor> sensors;
 
@@ -49,11 +50,35 @@ namespace WpfAppCentralinaAllarmi.Centralina
             Console.WriteLine("Allarme scattato");
         }
 
-        public void allarmDeactivated(int sensorID, string sensorType, DateTime time)
+        public void initSensors()
         {
-            //scrivere allarme su db remoto
-            //MOCK
-            Console.WriteLine("Allarme Disattivato");
+            SqlDataReader reader = checkSensorsOnDb();
+            if (reader == null)
+            {
+                return;
+            }
+        }
+
+        public void setActivation()
+        {
+
+        }
+
+        private SqlDataReader checkSensorsOnDb()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=cisco;Password=VMWARE1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                string query = "SELECT s.Id, t.TipoSensore, s.IsAbilitato FROM dbo.AnaSensori AS s JOIN dbo.TipiSensori AS t ON s.IdTipo = t.Id WHERE s.IdLuogo = 2;";
+                SqlCommand cmd = conn.CreateCommand();
+                SqlDataReader reader = cmd.ExecuteReader();
+                return reader;
+            }
+            catch
+            {
+                MessageBox.Show("Errore nella connessione al Db, contattare l'amministratore");
+                return null;
+            }
         }
     }
 }
