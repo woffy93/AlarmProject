@@ -40,14 +40,8 @@ namespace WpfAppCentralinaAllarmi
         {
             InitializeComponent();
             //inizializzo centralina sensori
-            controller = new Centralina.AlarmController(
-                new Dictionary<string, Centralina.Sensors.AbstractSensor>
-            {
-                {sensorLabels[0],  new Centralina.Sensors.FireSensor()},
-                {sensorLabels[1],  new Centralina.Sensors.GasSensor()},
-                {sensorLabels[2],  new Centralina.Sensors.IntrusionSensor()}
-            },
-                Id);
+            controller = new Centralina.AlarmController(Id);
+            controller.sensors = controller.initSensors();
             //inizializzo array luci
             lights = new Ellipse[] { Light_fire, Light_Gas, Light_Intrusion };
             //inizializzo i pennelli

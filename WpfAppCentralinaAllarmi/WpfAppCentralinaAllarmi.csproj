@@ -68,6 +68,7 @@
     <Compile Include="Centralina\Sensors\GasSensor.cs" />
     <Compile Include="Centralina\Sensors\FireSensor.cs" />
     <Compile Include="Centralina\Sensors\IntrusionSensor.cs" />
+    <Compile Include="Centralina\Sensors\SensorFactory.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
