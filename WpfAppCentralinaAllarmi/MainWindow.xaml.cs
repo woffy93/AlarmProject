@@ -30,6 +30,8 @@ namespace WpfAppCentralinaAllarmi
         private Centralina.AlarmController controller;
         private Ellipse[] lights;
         private int Id = 2;
+        //contiene dati sull'attivazione degliallarmi
+        private bool[] alarmsActivated = new bool[3];
 
 
         /*TODO:
@@ -55,16 +57,14 @@ namespace WpfAppCentralinaAllarmi
             control();
         }
 
-        //i bottoni cambiano lo stato del sensore e chiamano il metodo per scrivere sul db
-        //l'attivazione/disattivazione dell'allarme
+
+        /// <summary>
+        /// I bottoni cambiano lo stato del sensore
+        /// </summary>
 
         private void Btn_Fire_On_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[0], true);
-            controller.allarm(
-                controller.getSensorId(sensorLabels[0]),
-                sensorLabels[0],
-                DateTime.Now);
         }
 
         private void Btn_Fire_Off_Click(object sender, RoutedEventArgs e)
@@ -75,10 +75,6 @@ namespace WpfAppCentralinaAllarmi
         private void Btn_Gas_On_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[1], true);
-            controller.allarm(
-                controller.getSensorId(sensorLabels[1]),
-                sensorLabels[1],
-                DateTime.Now);
         }
 
         private void Btn_Gas_Off_Click(object sender, RoutedEventArgs e)
@@ -90,10 +86,6 @@ namespace WpfAppCentralinaAllarmi
         private void Btn_Intrusion_On_Click(object sender, RoutedEventArgs e)
         {
             controller.setAlarmState(sensorLabels[2], true);
-            controller.allarm(
-                controller.getSensorId(sensorLabels[2]),
-                sensorLabels[2],
-                DateTime.Now);
         }
 
         private void Btn_Intrusion_Off_Click(object sender, RoutedEventArgs e)

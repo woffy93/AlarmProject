@@ -18,6 +18,8 @@ namespace WpfAppCentralinaAllarmi.Centralina
         public AlarmController(int id) {
             idCentralina = id;
         }
+        public string dbUserId { get; set; }
+        public string dbPassword { get; set; }
         public int idCentralina; // = a IdCasa su tabella dbo.SensoriLuogo
         public GeoCoordinate mapCoordinates { get; set; }
         //sensore che mappa tiposensore a sensore
@@ -28,8 +30,9 @@ namespace WpfAppCentralinaAllarmi.Centralina
             return sensors[sensor].sensorId;
         }
         /// <summary>
-        /// Attiva l'allarme nel sensore modificandone lo stato.
-        /// Prima però verifica che il sensore sia attivo.
+        /// Attiva/disattiva l'allarme nel sensore modificandone lo stato.
+        /// QUanto lo attiva scrive anche sul db prima però verifica che il sensore sia attivo.
+        /// 
         /// </summary>
         /// <param name="sensor">The sensor.</param>
         /// <param name="state">if set to <c>true</c> [state].</param>
@@ -48,7 +51,11 @@ namespace WpfAppCentralinaAllarmi.Centralina
             if (s.abilitato == true)
             {
                 s.alarmState = state;
-                this.allarm(s.sensorId, sensorType, DateTime.Now);
+                if(state == true)
+                {
+                    this.allarm(s.sensorId, sensorType, DateTime.Now);
+                }
+                
             }          
         }
 
@@ -63,13 +70,24 @@ namespace WpfAppCentralinaAllarmi.Centralina
             return sensors.ToDictionary(s => s.Key, s => s.Value.alarmState);
         }
 
+        /// <summary>
+        /// Scrive materialmente gli allarmi sul DB
+        /// </summary>
+        /// <param name="sensorID">The sensor identifier.</param>
+        /// <param name="sensorType">Type of the sensor.</param>
+        /// <param name="time">The time.</param>
         public void allarm(int sensorID, string sensorType, DateTime time)
         {
             SqlConnection conn;
-            conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=cisco;Password=VMware1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID="+dbUserId+";Password="+dbPassword+";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             conn.Open();
-            string query = "";
-            SqlCommand cmd = new SqlCommand(query, conn);
+            string query = "INSERT INTO dbo.StoricoAllarmi (IdSensore, OraScatto) VALUES(@IdSensore, @OraScatto);";
+            SqlCommand cmd = new SqlCommand(query);
+            cmd.Connection = conn;
+            cmd.Parameters.AddWithValue("@IdSensore", sensorID);
+            cmd.Parameters.AddWithValue("@OraScatto", time);
+            cmd.ExecuteNonQuery();
+            conn.Close();
 
         }
 
@@ -108,7 +126,7 @@ namespace WpfAppCentralinaAllarmi.Centralina
             try
             {
                 SqlConnection conn;
-                conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=cisco;Password=VMware1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=" + dbUserId + ";Password=" + dbPassword + ";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
                 conn.Open();
                 string query = 
                     "SELECT s.Id, t.TipoSensore, s.IsAbilitato FROM dbo.AnaSensori AS s JOIN dbo.TipiSensori AS t ON s.IdTipo = t.Id WHERE s.IdLuogo = 2;";
@@ -123,6 +141,14 @@ namespace WpfAppCentralinaAllarmi.Centralina
                 MessageBox.Show("Errore nella connessione al Db, contattare l'amministratore" + e.Message);
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Metodo da chiamare periodicamente dopo l'attivazione di un allarme per controllare che sia stato disattivato
+        /// </summary>
+        private void checkAlarmDeactivation()
+        {
+
         }
     }
 }
