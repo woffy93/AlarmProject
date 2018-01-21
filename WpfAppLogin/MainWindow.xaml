@@ -137,7 +137,16 @@
 
     </WindowChrome.WindowChrome>
     <Grid Background="AliceBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
         <Frame x:Name="MainFrame" Content="{Binding CurrentPage, Converter={local:ApplicationPageValueConverter}}"/>
-
+        <Grid Grid.Column="1">
+            <local:SideMenuControl>
+                <Button Content="Test"/>
+            </local:SideMenuControl>
+            
+        </Grid>
     </Grid>
 </Window>

@@ -9,5 +9,6 @@ namespace WpfAppLogin
     public enum ApplicationPage
     {
         Login = 0,
+        Map = 1,
     }
 }

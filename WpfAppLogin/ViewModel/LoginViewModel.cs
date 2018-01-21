@@ -1,39 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using WpfAppLogin.ViewModel;
-using WpfAppLogin.ViewModel.Base;
 
 namespace WpfAppLogin
 {
     public class LoginViewModel : BaseViewModel
     {
         public string Email { get; set; }
-        
+        public bool LoginIsRunning { get; set; } //flag indicating if the login command is running
 
         public ICommand LoginCommand { get; set; }
 
-        //Constructor
+        // Constructor
         public LoginViewModel()
         {
-            
-            // Create commands
-            LoginCommand = new RelayParametrizedCommand(async (parameter) => await Login(parameter));
-            
-
+            LoginCommand = new RelayParameterizedCommand(async (parameter) => await Login(parameter));
         }
 
-       public async Task Login(object parameter)
+
+        public async Task Login(object parameter)
         {
-            await Task.Delay(500);
+            await RunCommand(() => this.LoginIsRunning, async () =>
+            {
+                await Task.Delay(5000);
+                var email = this.Email;
+                var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
+
+                //((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
+
+            
+            });
         }
-
     }
-
-
 }
+
+
 

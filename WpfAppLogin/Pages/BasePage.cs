@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Windows.Controls;
+using System.Windows;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using WpfAppLogin.ViewModel;
+using System.Windows.Media.Animation;
+using System;
 
 namespace WpfAppLogin
 {
@@ -12,33 +10,37 @@ namespace WpfAppLogin
     public class BasePage<VM> : Page
         where VM : BaseViewModel, new()
     {
+
         private VM mViewModel;
 
-        //ViewModel associated with the page
+
+
         public VM ViewModel
         {
             get { return mViewModel; }
             set
             {
-                if (mViewModel == value) // if nothing has changed return
+
+                if (mViewModel == value) // if nothing has changed, return
                     return;
 
-                //update the value
-                mViewModel = value;
 
-                // set the data context for this page
-                this.DataContext = mViewModel;
+                mViewModel = value; // update the value
+
+
+                this.DataContext = mViewModel; //set the dataContext for this page
             }
         }
 
+
         public BasePage()
         {
-            this.Loaded += BasePage_Loaded;
 
-            //create a default viewmodel
+            //this.Loaded += BasePage_Loaded;
+
+            // Create a default view model
             this.ViewModel = new VM();
         }
-
         private void BasePage_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             //throw new NotImplementedException();

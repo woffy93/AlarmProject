@@ -5,11 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace WpfAppLogin.ViewModel.Base
+namespace WpfAppLogin
 {
-    /// <summary>
-    /// A basic command that runs an Action
-    /// </summary>
     public class RelayCommand : ICommand
     {
         #region Private Members
@@ -66,3 +63,4 @@ namespace WpfAppLogin.ViewModel.Base
         #endregion
     }
 }
+

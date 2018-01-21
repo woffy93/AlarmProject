@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,21 +16,13 @@ using System.Windows.Shapes;
 namespace WpfAppLogin
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for SideMenuControl.xaml
     /// </summary>
-    public partial class LoginPage : BasePage<LoginViewModel>, IHavePassword
+    public partial class SideMenuControl : UserControl
     {
-        public LoginPage()
+        public SideMenuControl()
         {
             InitializeComponent();
-        }
-
-        //the securepassword for this view
-        public SecureString SecurePassword => PasswordText.SecurePassword;
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
