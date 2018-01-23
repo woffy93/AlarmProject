@@ -30,7 +30,7 @@ namespace WpfAppLogin
                 var email = this.Email;
                 var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
 
-                //((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
+                ((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
 
             
             });
