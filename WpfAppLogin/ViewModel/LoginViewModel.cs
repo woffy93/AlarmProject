@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Threading.Tasks;
@@ -26,11 +28,43 @@ namespace WpfAppLogin
         {
             await RunCommand(() => this.LoginIsRunning, async () =>
             {
-                await Task.Delay(5000);
+                //await Task.Delay(5000);
                 var email = this.Email;
                 var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
 
-                ((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
+                SqlConnection sqlcon = new SqlConnection(@"Server = tcp:serverallarmi.database.windows.net,1433; Initial Catalog = dballarmi; Persist Security Info = False; User ID =cisco; Password =VMware1!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
+                try
+                {
+                    if (sqlcon.State == ConnectionState.Closed)
+                        await sqlcon.OpenAsync();
+
+                    String query = "SELECT count (1) from AnaOperatori Where Login=@Login and Password=@Password";
+                    SqlCommand sqlcmd = new SqlCommand(query, sqlcon);
+                    sqlcmd.CommandType = CommandType.Text;
+                    sqlcmd.Parameters.AddWithValue("@Login", email);
+                    sqlcmd.Parameters.AddWithValue("@Password", pass);
+                    int count = Convert.ToInt32(sqlcmd.ExecuteScalar());
+
+
+                    if (count == 1)
+                    {
+                        ((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
+                    }
+                    else
+                    {
+                        MessageBox.Show("User or Password Incorrect!");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    sqlcon.Close();
+                }
+                //((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
 
             
             });
