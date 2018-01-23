@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppLoginLogica", "..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFMapApp", "..\..\source\repos\WcfServiceLibrary1\WPFTestApplication\WPFMapApp.csproj", "{4DD102E0-A318-471B-9B13-5D2610AE6140}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfLoginMaps", "..\WPFTTT\WPFTTT\WpfLoginMaps.csproj", "{748E8439-6EB5-4C1D-8D8F-1258276973AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
