@@ -32,7 +32,14 @@ namespace WpfAppLogin
                 var email = this.Email;
                 var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
 
-                SqlConnection sqlcon = new SqlConnection(@"Server = tcp:serverallarmi.database.windows.net,1433; Initial Catalog = dballarmi; Persist Security Info = False; User ID =cisco; Password =VMware1!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
+                SqlConnection sqlcon = new SqlConnection(@"Server = tcp:serverallarmi.database.windows.net,1433; 
+                                                                    Initial Catalog = dballarmi;
+                                                                    Persist Security Info = False;
+                                                                    User ID =cisco; Password =VMware1!; 
+                                                                    MultipleActiveResultSets = False; 
+                                                                    Encrypt = True; 
+                                                                    TrustServerCertificate = False; 
+                                                                    Connection Timeout = 30;");
                 try
                 {
                     if (sqlcon.State == ConnectionState.Closed)
