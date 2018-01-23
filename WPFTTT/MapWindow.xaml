@@ -1,0 +1,27 @@
+﻿<Window x:Class="WPFTTT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
+        xmlns:local="clr-namespace:WPFTTT"
+        mc:Ignorable="d"
+        Title="Centralina" Height="900" Width="1400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="315*"/>
+            <ColumnDefinition Width="149*"/>
+        </Grid.ColumnDefinitions>
+        <m:Map CredentialsProvider="Ak87vy14dj85fgNe-1oWI2TwUgUIGKYIsJCp7i5h3c3FGSY4Tjhp9GoSzJ4LkK9e" Mode="AerialWithLabels" Center="45.952272,12.68127" ZoomLevel="13" Margin="0,0,52,0">
+            <m:Pushpin Location="45.950672279633814,12.678887844085693" Background="Green" Name="PinCasa1"/>
+            <m:Pushpin Location="45.952850415914455,12.695817947387695" Background="Green" Name="PinSME"/>
+            <m:Pushpin Location="45.948732771175884,12.685314416885376" Background="Green" Name="PinSavio"/>
+            <m:Pushpin Location="45.966126244624235,12.650542259216309" Background="Green" Name="PinOspedale"/>
+            <m:Pushpin Location="45.94849405775212,12.656024694442749" Background="Green" Name="PinFiera"/>
+        </m:Map>
+        <Button x:Name="BtnLogout" Content="Logout" Margin="0,20,20,0" HorizontalAlignment="Right" Click="BtnLogout_Click" Height="23" VerticalAlignment="top" Width="63" Grid.Column="1" FontSize="14"/>
+        <Label x:Name="LblLogin" Content="" Margin="1,20,170,0" VerticalAlignment="Top" Grid.Column="1" FontSize="14"/>
+        <ComboBox x:Name="CbxElenco" Margin="6,98,0,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Left" Width="208" FontSize="14" SelectionChanged="CbxElenco_SelectionChanged"/>
+        <Label x:Name="LblElenco" Content="Elenco Case" Margin="1,64,0,0" VerticalAlignment="Top" FontSize="14" Grid.Column="1" HorizontalAlignment="Left" Width="152"/>
+    </Grid>
+</Window>
