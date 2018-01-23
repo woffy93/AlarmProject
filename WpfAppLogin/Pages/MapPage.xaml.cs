@@ -19,19 +19,12 @@ namespace WpfAppLogin
     /// <summary>
     /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginPage : BasePage<LoginViewModel>, IHavePassword
+    public partial class MapPage : BasePage<LoginViewModel>
     {
-        public LoginPage()
+        public MapPage()
         {
             InitializeComponent();
         }
-
-        //the securepassword for this view
-        public SecureString SecurePassword => PasswordText.SecurePassword;
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

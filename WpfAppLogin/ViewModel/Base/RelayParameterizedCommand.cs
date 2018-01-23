@@ -7,10 +7,7 @@ using System.Windows.Input;
 
 namespace WpfAppLogin
 {
-    /// <summary>
-    /// A basic command that runs an Action
-    /// </summary>
-    public class RelayParametrizedCommand : ICommand
+       public class RelayParameterizedCommand : ICommand
     {
         #region Private Members
 
@@ -35,7 +32,7 @@ namespace WpfAppLogin
         /// <summary>
         /// Default constructor
         /// </summary>
-        public RelayParametrizedCommand(Action<object> action)
+        public RelayParameterizedCommand(Action<object> action)
         {
             mAction = action;
         }
