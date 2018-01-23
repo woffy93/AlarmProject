@@ -7,12 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppLogin", "WpfAppLogin\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppCentralinaAllarmi", "WpfAppCentralinaAllarmi\WpfAppCentralinaAllarmi.csproj", "{15109F6C-7764-45D3-8245-6278F8B78B0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServiceDb", "..\..\source\repos\WcfServiceLibrary1\WcfServiceLibrary1\WcfServiceDb.csproj", "{15DCCAA5-16F4-426F-A414-8B65F628B8E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppLoginLogica", "..\..\source\repos\WcfServiceLibrary1\WpfAppLogin\WpfAppLoginLogica.csproj", "{5DF8BB70-0534-400B-B528-FF6260464562}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFMapApp", "..\..\source\repos\WcfServiceLibrary1\WPFTestApplication\WPFMapApp.csproj", "{4DD102E0-A318-471B-9B13-5D2610AE6140}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfLoginMaps", "..\WPFTTT\WPFTTT\WpfLoginMaps.csproj", "{748E8439-6EB5-4C1D-8D8F-1258276973AE}"
 EndProject
 Global
@@ -29,18 +23,6 @@ Global
 		{15109F6C-7764-45D3-8245-6278F8B78B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15109F6C-7764-45D3-8245-6278F8B78B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15109F6C-7764-45D3-8245-6278F8B78B0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15DCCAA5-16F4-426F-A414-8B65F628B8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15DCCAA5-16F4-426F-A414-8B65F628B8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15DCCAA5-16F4-426F-A414-8B65F628B8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15DCCAA5-16F4-426F-A414-8B65F628B8E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DF8BB70-0534-400B-B528-FF6260464562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DF8BB70-0534-400B-B528-FF6260464562}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DF8BB70-0534-400B-B528-FF6260464562}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DF8BB70-0534-400B-B528-FF6260464562}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4DD102E0-A318-471B-9B13-5D2610AE6140}.Release|Any CPU.Build.0 = Release|Any CPU
 		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
