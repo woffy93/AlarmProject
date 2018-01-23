@@ -22,6 +22,8 @@ namespace WpfAppCentralinaAllarmi.Centralina.Sensors
 
         public bool alarmState { get; set; }
 
+        public DateTime alarmTime { get; set; }
+
         public abstract bool readSensor();
 
     }

@@ -16,16 +16,19 @@ namespace WpfAppCentralinaAllarmi.Centralina.Sensors
                     FireSensor f = new FireSensor();
                     f.sensorId = id;
                     f.abilitato = activation;
+                    f.alarmState = false;
                     return f;
                 case "Fuoriuscita di gas":
                     GasSensor g = new GasSensor();
                     g.sensorId = id;
                     g.abilitato = activation;
+                    g.alarmState = false;
                     return g;
                 case "Intrusione":
                     IntrusionSensor i= new IntrusionSensor();
                     i.sensorId = id;
                     i.abilitato = activation;
+                    i.alarmState = false;
                     return i;
                 default:
                     return null;

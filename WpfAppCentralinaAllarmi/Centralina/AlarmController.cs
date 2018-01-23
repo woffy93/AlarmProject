@@ -15,23 +15,41 @@ namespace WpfAppCentralinaAllarmi.Centralina
     /// </summary>
     public class AlarmController
     {
-        public AlarmController(int id) {
-            idCentralina = id;
-        }
-        public string dbUserId { get; set; }
-        public string dbPassword { get; set; }
+        //attributi
+
         public int idCentralina; // = a IdCasa su tabella dbo.SensoriLuogo
         public GeoCoordinate mapCoordinates { get; set; }
         //sensore che mappa tiposensore a sensore
+        //la mappatura è univoca poiché la centralina è pensata
+        //per avere un solo sensore per tipo
         public Dictionary<string, Sensors.AbstractSensor> sensors;
+        public string dbUserId { get; set; }
+        public string dbPassword { get; set; }
 
+
+        /// <summary>
+        /// Costruttore
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public AlarmController(int id) {
+            idCentralina = id;
+        }
+
+
+        //metodi
+
+        /// <summary>
+        /// Ritorna l'id di un signolo sensore
+        /// </summary>
+        /// <param name="sensor">The sensor.</param>
+        /// <returns></returns>
         public int getSensorId(string sensor)
         {
             return sensors[sensor].sensorId;
         }
         /// <summary>
         /// Attiva/disattiva l'allarme nel sensore modificandone lo stato.
-        /// QUanto lo attiva scrive anche sul db prima però verifica che il sensore sia attivo.
+        /// Quando lo attiva scrive anche sul db prima però verifica che il sensore sia attivo.
         /// 
         /// </summary>
         /// <param name="sensor">The sensor.</param>
@@ -39,21 +57,22 @@ namespace WpfAppCentralinaAllarmi.Centralina
         public void setAlarmState(string sensor, bool state)
         {
             Centralina.Sensors.AbstractSensor s = sensors[sensor];
-            string sensorType = "";
-            foreach(KeyValuePair<string, Centralina.Sensors.AbstractSensor> kvp in sensors)
-            {
-                if(kvp.Value.sensorId.ToString() == sensor)
-                {
-                    sensorType = kvp.Key;
-                    break;
-                }
-            }
+            
+            //se il sensore è abilitato scrivo sul db e ne cambio lo stato localmente
             if (s.abilitato == true)
-            {
-                s.alarmState = state;
-                if(state == true)
+            {               
+                if(state == true) //caso state = true
                 {
-                    this.allarm(s.sensorId, sensorType, DateTime.Now);
+                    s.alarmState = true;
+                    s.alarmTime = DateTime.Now;
+                    this.allarm(s.sensorId, s.alarmTime);
+                }else //caso state = false
+                {
+                    //se lo stato del sensore è salvato true lo cambio in false
+                    if(sensors[sensor].alarmState)
+                    {
+                        s.alarmState = false;
+                    }
                 }
                 
             }          
@@ -76,7 +95,7 @@ namespace WpfAppCentralinaAllarmi.Centralina
         /// <param name="sensorID">The sensor identifier.</param>
         /// <param name="sensorType">Type of the sensor.</param>
         /// <param name="time">The time.</param>
-        public void allarm(int sensorID, string sensorType, DateTime time)
+        public void allarm(int sensorID, DateTime time)
         {
             SqlConnection conn;
             conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID="+dbUserId+";Password="+dbPassword+";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
@@ -112,15 +131,11 @@ namespace WpfAppCentralinaAllarmi.Centralina
             }
             return dict;
         }
+
         /// <summary>
-        /// metodo che verifica l'attivazione dei sensori
-        /// da chiamare periodicamente
+        /// Metodo che ricava dal db i sensori con tutti i loro dati
         /// </summary>
-        public void setActivation()
-        {
-
-        }
-
+        /// <returns></returns>
         private SqlDataReader checkSensorsOnDb()
         {
             try
@@ -138,17 +153,61 @@ namespace WpfAppCentralinaAllarmi.Centralina
             }
             catch(Exception e)
             {
-                MessageBox.Show("Errore nella connessione al Db, contattare l'amministratore" + e.Message);
+                MessageBox.Show("Errore nella connessione al Db, contattare l'amministratore. \n" + e.Message);
                 return null;
             }
         }
 
         /// <summary>
-        /// Metodo da chiamare periodicamente dopo l'attivazione di un allarme per controllare che sia stato disattivato
+        /// Metodo che controlla sul db se l'allarme di un sensore è stato disattivato
         /// </summary>
-        private void checkAlarmDeactivation()
+        /// <param name="sensorID">The sensor identifier.</param>
+        private void checkAlarmsOnDb(string sensorID)
         {
+            string sensorType = sensors
+                .ToDictionary(k => k.Value.sensorId, k => k.Key)[Int32.Parse(sensorID)];
+            try
+            {
+                SqlDataReader reader;
+                SqlConnection conn;
+                conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=" + dbUserId + ";Password=" + dbPassword + ";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                conn.Open();
+                string query =
+                    "SELECT Id, OraDisatt FROM dbo.StoricoAllarmi WHERE IdSensore = @IdSensore AND OraScatto = @OraScatto AND OraDisatt IS NOT NULL;";
+                SqlCommand cmd = new SqlCommand(query);
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@IdSensore", Int32.Parse(sensorID));
+                cmd.Parameters.AddWithValue("@OraScatto", sensors[sensorType].alarmTime);
+                reader = cmd.ExecuteReader();
+                
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //recupero il tipo del sensore
+                        setAlarmState(sensorType, false);
+                    }
+                }
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Errore nella connessione al Db, contattare l'amministratore. \n" + e.Message);                
+            }
+        }
 
+
+        /// <summary>
+        /// metodo da chiamare periodicamente per controllare se gli allarmi sono stati disattivati
+        /// </summary>
+        public void checkAlarmDeactivation()
+        {
+            this.sensors
+                .Where(s => s.Value.alarmState == true)
+                .ToDictionary(s => s.Value.sensorId, s => s.Value)
+                .Keys
+                .ToList()
+                .ForEach(k => this.checkAlarmsOnDb(k.ToString()));   
         }
     }
 }

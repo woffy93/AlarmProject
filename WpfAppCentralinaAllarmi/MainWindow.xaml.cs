@@ -30,9 +30,6 @@ namespace WpfAppCentralinaAllarmi
         private Centralina.AlarmController controller;
         private Ellipse[] lights;
         private int Id = 2;
-        //contiene dati sull'attivazione degliallarmi
-        private bool[] alarmsActivated = new bool[3];
-
 
         /*TODO:
          * Controllo su db remoto per vedere quali sensori sono da controllare
@@ -40,26 +37,28 @@ namespace WpfAppCentralinaAllarmi
 
         public MainWindow()
         {
-            InitializeComponent();
-            //inizializzo centralina sensori
-            controller = new Centralina.AlarmController(Id);
-            controller.sensors = controller.initSensors();
-            //inizializzo array luci
-            lights = new Ellipse[] { Light_fire, Light_Gas, Light_Intrusion };
-            //inizializzo i pennelli
-            
+            InitializeComponent();            
         }
 
         //metodi per controllo UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            //inizializzo centralina sensori
+            controller = new Centralina.AlarmController(Id);
+            controller.dbUserId = "*****";
+            controller.dbPassword = "*****";
+            controller.sensors = controller.initSensors();
+            //funzione col main loop
             control();
         }
 
 
         /// <summary>
-        /// I bottoni cambiano lo stato del sensore
+        /// I bottoni cambiano lo stato del sensore, attivando/disattivando l'allarme.
+        /// Tutte le altre attività (cambio colore luci, lettura/scritturadb) dipendono dai metodi
+        /// che leggono lo stato dei sensori
         /// </summary>
 
         private void Btn_Fire_On_Click(object sender, RoutedEventArgs e)
@@ -101,20 +100,6 @@ namespace WpfAppCentralinaAllarmi
             return this.controller.getAlarms();
         }
 
-        private Ellipse findLight(string name)
-        {
-            if(name == sensorLabels[0])
-            {
-                return lights[0];
-            }else if( name == sensorLabels[1])
-            {
-                return lights[1];
-            }
-            else
-            {
-                return lights[2];
-            }
-        }
         //metodo per le luci, a seconda dello stato le colora in modo diverso
         private void setLightColor(string name, bool state)
         {
@@ -145,18 +130,17 @@ namespace WpfAppCentralinaAllarmi
             {
                 Dictionary<string, bool> dict = await checkSensors();
                 dict.ToList()
-                    .ForEach(t => setLightColor(t.Key, t.Value)); 
+                    .ForEach(t => setLightColor(t.Key, t.Value));
+                await Task.Run(() => this.checkAlarms());
             }                    
         }
-  
+
         /// <summary>
-        /// metodo per controllare sul db quali sensori leggere  
+        /// Metodo che controlla cambiamenti nello stato degli alalrmi sul db remoto
         /// </summary>
-        private void checkbForSensors()
+        private void checkAlarms()
         {
-
-
-            Console.WriteLine("querydb");
+            this.controller.checkAlarmDeactivation();
         }
     }
 }
