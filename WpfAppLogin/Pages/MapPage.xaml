@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <local:SideMenuControl>
-                <local:HouseListItemControl Height="60" VerticalAlignment="Top"/>
+                <local:HouseListControl  VerticalAlignment="Top"/>
             </local:SideMenuControl>
             
         </Grid>

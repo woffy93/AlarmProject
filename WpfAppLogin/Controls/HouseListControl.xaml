@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WpfAppLogin"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="{StaticResource ForegroundLightBrush}">
+    <Grid DataContext="{x:Static local:HouseListViewModel.Instance}" Background="{StaticResource ForegroundLightBrush}">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding Houses}">
                 <ItemsControl.ItemTemplate>

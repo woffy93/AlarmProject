@@ -14,7 +14,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ContentControl}">
                         <Border x:Name="background" Background="{StaticResource ForegroundLightBrush}">
-                            <Grid x:Name="container" Background="Transparent">
+                            <Grid Height="60" x:Name="container" Background="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
@@ -63,7 +63,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <ContentControl DataContext="" Style="{StaticResource ContentStyle}"/>
+    <ContentControl Style="{StaticResource ContentStyle}"/>
 
     
 </UserControl>
