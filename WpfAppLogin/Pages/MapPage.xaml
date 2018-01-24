@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
       xmlns:local="clr-namespace:WpfAppLogin"
       mc:Ignorable="d" 
                 x:Name="Page"
@@ -21,6 +22,18 @@
             </local:SideMenuControl>
             
         </Grid>
+        <Grid Grid.Column="0">
+            <m:Map CredentialsProvider="Ak87vy14dj85fgNe-1oWI2TwUgUIGKYIsJCp7i5h3c3FGSY4Tjhp9GoSzJ4LkK9e" 
+                   Mode="AerialWithLabels" 
+                   Center="45.952272,12.68127" 
+                   ZoomLevel="13">
+                <m:Pushpin Location="45.950672279633814,12.678887844085693" Background="Green" Name="PinCasa1"/>
+                <m:Pushpin Location="45.952850415914455,12.695817947387695" Background="Green" Name="PinSME"/>
+                <m:Pushpin Location="45.948732771175884,12.685314416885376" Background="Green" Name="PinSavio"/>
+                <m:Pushpin Location="45.966126244624235,12.650542259216309" Background="Green" Name="PinOspedale"/>
+                <m:Pushpin Location="45.94849405775212,12.656024694442749" Background="Green" Name="PinFiera"/>
+            </m:Map>
+           </Grid>
 
 
     </Grid>
