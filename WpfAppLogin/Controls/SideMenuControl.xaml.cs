@@ -24,5 +24,11 @@ namespace WpfAppLogin
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            WpfStorico panel = new WpfStorico();
+            panel.Show();
+        }
     }
 }

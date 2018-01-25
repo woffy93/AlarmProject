@@ -8,7 +8,7 @@
         Title="Storico Allarmi" Height="310" Width="700">
     <Grid>
         <DataGrid x:Name="GridStorico" Height="168" Margin="25,86,0,0" VerticalAlignment="Top" SelectionChanged="DataGrid_SelectionChanged" ColumnWidth="*" HorizontalAlignment="Left" Width="642"/>
-        <Button x:Name="BtnAggiorna" Content="Aggiorna" HorizontalAlignment="Right" Margin="0,10,424,0" VerticalAlignment="Top" Width="243" Click="BtnAggiorna_Click" Height="58" RenderTransformOrigin="0.435,0.52"/>
-        <Button x:Name="BtnEsci" Content="Esci" Margin="462,10,0,0" VerticalAlignment="Top" Click="BtnEsci_Click" HorizontalAlignment="Left" Width="205"/>
+        <Button x:Name="BtnAggiorna" Content="Aggiorna" HorizontalAlignment="Right" Margin="25,20,424,0" VerticalAlignment="Top" Width="243" Click="BtnAggiorna_Click" Height="58" RenderTransformOrigin="0.435,0.52"/>
+        <Button x:Name="BtnEsci" Content="Esci" Margin="462,20,0,0" VerticalAlignment="Top" Click="BtnEsci_Click" HorizontalAlignment="Left" Width="205"/>
     </Grid>
 </Window>
