@@ -144,8 +144,11 @@ namespace WpfAppCentralinaAllarmi.Centralina
                 conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=" + dbUserId + ";Password=" + dbPassword + ";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
                 conn.Open();
                 string query = 
-                    "SELECT s.Id, t.TipoSensore, s.IsAbilitato FROM dbo.AnaSensori AS s JOIN dbo.TipiSensori AS t ON s.IdTipo = t.Id WHERE s.IdLuogo = 2;";
+                    "SELECT s.Id, t.TipoSensore, s.IsAbilitato FROM dbo.AnaSensori AS s JOIN dbo.TipiSensori AS t ON s.IdTipo = t.Id WHERE s.IdLuogo = @IdLuogo;";
                 SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@IdLuogo", this.idCentralina);
+
                 SqlDataReader reader;
                 reader = cmd.ExecuteReader();
 

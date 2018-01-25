@@ -38,7 +38,7 @@ namespace WpfAppCentralinaAllarmi
         public MainWindow(int id)
         {
             InitializeComponent();
-            this.Id = Id;
+            this.Id = id;
         }
 
         //metodi per controllo UI
@@ -49,7 +49,7 @@ namespace WpfAppCentralinaAllarmi
             //inizializzo centralina sensori
             controller = new Centralina.AlarmController(Id);
             controller.dbUserId = "cisco";
-            controller.dbPassword = "VMWare1!";
+            controller.dbPassword = "VMware1!";
             controller.sensors = controller.initSensors();
             //funzione col main loop
             control();
@@ -97,7 +97,7 @@ namespace WpfAppCentralinaAllarmi
 
         private async Task<Dictionary<string, bool>> checkSensors()
         {
-            await Task.Delay(500);
+            await Task.Delay(100);
             return this.controller.getAlarms();
         }
 
