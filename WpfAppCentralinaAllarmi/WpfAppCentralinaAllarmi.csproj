@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Centralina\AlarmController.cs" />
+    <Compile Include="Centralina\RawLoginSession.cs" />
     <Compile Include="Centralina\Sensors\AbstractSensor.cs" />
     <Compile Include="Centralina\Sensors\GasSensor.cs" />
     <Compile Include="Centralina\Sensors\FireSensor.cs" />

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WpfAppLogin.ViewModel;
+using WpfAppCentralinaAllarmi;
 
 namespace WpfAppLogin
 {
@@ -45,17 +46,19 @@ namespace WpfAppLogin
                     if (sqlcon.State == ConnectionState.Closed)
                         await sqlcon.OpenAsync();
 
-                    String query = "SELECT count (1) from AnaOperatori Where Login=@Login and Password=@Password";
+                    String query = "SELECT Id from AnaOperatori Where Login=@Login and Password=@Password";
                     SqlCommand sqlcmd = new SqlCommand(query, sqlcon);
                     sqlcmd.CommandType = CommandType.Text;
                     sqlcmd.Parameters.AddWithValue("@Login", email);
                     sqlcmd.Parameters.AddWithValue("@Password", pass);
-                    int count = Convert.ToInt32(sqlcmd.ExecuteScalar());
+                    int id = Convert.ToInt32(sqlcmd.ExecuteScalar());
 
 
-                    if (count == 1)
+                    if (id != 0)
                     {
                         ((WindowViewModel)((MainWindow)Application.Current.MainWindow).DataContext).CurrentPage = ApplicationPage.Map;
+                        WpfAppCentralinaAllarmi.Centralina.RawLoginSession.userId = id;
+
                     }
                     else
                     {

@@ -72,6 +72,7 @@ namespace WpfAppCentralinaAllarmi.Centralina
                     if(sensors[sensor].alarmState)
                     {
                         s.alarmState = false;
+                        deactivateAlarmsOnDb(s.sensorId.ToString());
                     }
                 }
                 
@@ -199,6 +200,41 @@ namespace WpfAppCentralinaAllarmi.Centralina
             }
         }
 
+        private void deactivateAlarmsOnDb(string sensorID)
+        {
+            string sensorType = sensors
+                .ToDictionary(k => k.Value.sensorId, k => k.Key)[Int32.Parse(sensorID)];
+            try
+            {
+                SqlDataReader reader;
+                SqlConnection conn;
+                conn = new SqlConnection(@"Server=tcp:serverallarmi.database.windows.net,1433;Initial Catalog=dballarmi;Persist Security Info=False;User ID=" + dbUserId + ";Password=" + dbPassword + ";MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                conn.Open();
+                string query =
+                    "UPDATE dbo.StoricoAllarmi SET OraDisatt = @OraDisatt, IdOperatore=@IdOperatore WHERE IdSensore = @IdSensore AND OraScatto = @OraScatto;";
+                SqlCommand cmd = new SqlCommand(query);
+                cmd.Connection = conn;
+                cmd.Parameters.AddWithValue("@IdSensore", Int32.Parse(sensorID));
+                cmd.Parameters.AddWithValue("@IdOperatore", RawLoginSession.userId);
+                cmd.Parameters.AddWithValue("@OraDisatt", DateTime.Now);
+                cmd.Parameters.AddWithValue("@OraScatto", sensors[sensorType].alarmTime);
+                reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //recupero il tipo del sensore
+                        setAlarmState(sensorType, false);
+                    }
+                }
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Errore nella connessione al Db, contattare l'amministratore. \n" + e.Message);
+            }
+        }
 
         /// <summary>
         /// metodo da chiamare periodicamente per controllare se gli allarmi sono stati disattivati
