@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppCentralinaAllarmi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="640" Loaded="Window_Loaded">
+        Title="MainWindow" Height="480" Width="800" Loaded="Window_Loaded">
     <Grid x:Name="Main_W_Alarm">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -13,20 +13,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="Fire_Grid" HorizontalAlignment="Left" Height="430" Margin="10,10,0,0" VerticalAlignment="Top" Width="191">
-            <Button x:Name="Btn_Fire_On" Content="ATTIVAZIONE" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Fire_On_Click"/>
-            <Button x:Name="Btn_Fire_Off" Content="SILENZIA" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Fire_Off_Click"/>
+            <Button x:Name="Btn_Fire_On" Content="ON" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Fire_On_Click"/>
+            <Button x:Name="Btn_Fire_Off" Content="OFF" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Fire_Off_Click"/>
             <TextBlock x:Name="Txt_Fire" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="ALLARME ANTINCENDIO" VerticalAlignment="Top" Height="81" Width="171" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
             <Ellipse x:Name="Light_fire" HorizontalAlignment="Left" Height="111" Margin="42,135,0,0" Stroke="Black" VerticalAlignment="Top" Width="116" Fill="Yellow"/>
         </Grid>
         <Grid x:Name="Gas_Grid" HorizontalAlignment="Left" Height="430" Margin="9.8,10,0,0" VerticalAlignment="Top" Width="191" Grid.Column="1">
-            <Button x:Name="Btn_Gas_On" Content="ATTIVAZIONE" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Gas_On_Click"/>
-            <Button x:Name="Btn_Gas_Off" Content="SILENZIA" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Gas_Off_Click"/>
+            <Button x:Name="Btn_Gas_On" Content="ON" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Gas_On_Click"/>
+            <Button x:Name="Btn_Gas_Off" Content="OFF" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Gas_Off_Click"/>
             <TextBlock x:Name="Txt_Gas" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="ALLARME FUGA DI GAS" VerticalAlignment="Top" Height="81" Width="171" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
             <Ellipse x:Name="Light_Gas" HorizontalAlignment="Left" Height="111" Margin="42,135,0,0" Stroke="Black" VerticalAlignment="Top" Width="116" Fill="Yellow"/>
         </Grid>
         <Grid x:Name="Intrusion_Grid" HorizontalAlignment="Left" Height="430" Margin="9.6,10,0,0" VerticalAlignment="Top" Width="191" Grid.Column="2">
-            <Button x:Name="Btn_Intrusion_On" Content="ATTIVAZIONE" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Intrusion_On_Click"/>
-            <Button x:Name="Btn_Intrusion_Off" Content="SILENZIA" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Intrusion_Off_Click"/>
+            <Button x:Name="Btn_Intrusion_On" Content="ON" HorizontalAlignment="Left" Margin="10,302,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Intrusion_On_Click"/>
+            <Button x:Name="Btn_Intrusion_Off" Content="OFF" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Width="171" Height="41" FontWeight="Bold" FontSize="18" Click="Btn_Intrusion_Off_Click"/>
             <TextBlock x:Name="Txt_Intrusion" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="ALLARME INTRUSIONE" VerticalAlignment="Top" Height="81" Width="171" FontSize="20" TextAlignment="Center" FontWeight="Bold"/>
             <Ellipse x:Name="Light_Intrusion" HorizontalAlignment="Left" Height="111" Margin="42,135,0,0" Stroke="Black" VerticalAlignment="Top" Width="116" Fill="Yellow"/>
         </Grid>

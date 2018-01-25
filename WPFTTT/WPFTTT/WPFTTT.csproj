@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{748E8439-6EB5-4C1D-8D8F-1258276973AE}</ProjectGuid>
+    <ProjectGuid>{B4DFAC5C-37BB-4FB5-BCB8-2DFE1075F06C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WPFTTT</RootNamespace>
     <AssemblyName>WPFTTT</AssemblyName>
@@ -41,7 +41,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Maps.MapControl.WPF">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Bing Maps WPF Control\V1\Libraries\Microsoft.Maps.MapControl.WPF.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

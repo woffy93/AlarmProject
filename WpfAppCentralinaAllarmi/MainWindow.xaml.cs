@@ -29,15 +29,16 @@ namespace WpfAppCentralinaAllarmi
         private string[] sensorLabels = { "Incendio", "Fuoriuscita di gas", "Intrusione" };
         private Centralina.AlarmController controller;
         private Ellipse[] lights;
-        private int Id = 2;
+        public int Id;
 
         /*TODO:
          * Controllo su db remoto per vedere quali sensori sono da controllare
          */
 
-        public MainWindow()
+        public MainWindow(int id)
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.Id = Id;
         }
 
         //metodi per controllo UI
@@ -47,8 +48,8 @@ namespace WpfAppCentralinaAllarmi
 
             //inizializzo centralina sensori
             controller = new Centralina.AlarmController(Id);
-            controller.dbUserId = "*****";
-            controller.dbPassword = "*****";
+            controller.dbUserId = "cisco";
+            controller.dbPassword = "VMWare1!";
             controller.sensors = controller.initSensors();
             //funzione col main loop
             control();

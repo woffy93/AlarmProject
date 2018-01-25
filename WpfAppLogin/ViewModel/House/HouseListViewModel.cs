@@ -34,7 +34,7 @@ namespace WpfAppLogin
             dt.Load(reader);
             foreach (DataRow row in dt.Rows)
             {
-                HouseItemViewModel a = new HouseItemViewModel { Name = row[0].ToString() };
+                HouseItemViewModel a = new HouseItemViewModel { Name = row[0].ToString(), Id = row[1].ToString() };
                 if (a != null)
                     Houses.Add(a);
             }

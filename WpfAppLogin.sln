@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppCentralinaAllarmi", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfLoginMaps", "..\WPFTTT\WPFTTT\WpfLoginMaps.csproj", "{748E8439-6EB5-4C1D-8D8F-1258276973AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTTT", "WPFTTT\WPFTTT\WPFTTT.csproj", "{B4DFAC5C-37BB-4FB5-BCB8-2DFE1075F06C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{748E8439-6EB5-4C1D-8D8F-1258276973AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4DFAC5C-37BB-4FB5-BCB8-2DFE1075F06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DFAC5C-37BB-4FB5-BCB8-2DFE1075F06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DFAC5C-37BB-4FB5-BCB8-2DFE1075F06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DFAC5C-37BB-4FB5-BCB8-2DFE1075F06C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -45,7 +45,13 @@ namespace WPFTTT
 
         private void Load_page()
         {
-            SqlConnection conn = new SqlConnection(@"Server = tcp:serverallarmi.database.windows.net,1433; Initial Catalog = dballarmi; Persist Security Info = False; User ID =cisco; Password =VMware1!; MultipleActiveResultSets = False; Encrypt = True; TrustServerCertificate = False; Connection Timeout = 30;");
+            SqlConnection conn = new SqlConnection(@"Server = tcp:serverallarmi.database.windows.net,1433;
+                                                    Initial Catalog = dballarmi; 
+                                                    Persist Security Info = False;
+                                                    User ID =cisco; Password =VMware1!; 
+                                                    MultipleActiveResultSets = False;
+                                                    Encrypt = True; TrustServerCertificate = False; 
+                                                    Connection Timeout = 30;");
             conn.Open();
             SqlCommand sc = new SqlCommand("SELECT nome, id FROM Luoghi order by Id", conn);
             SqlDataReader reader;

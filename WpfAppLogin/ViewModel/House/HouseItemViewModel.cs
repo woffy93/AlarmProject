@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WpfAppCentralinaAllarmi;
 
 namespace WpfAppLogin
 {
@@ -14,6 +15,8 @@ namespace WpfAppLogin
         public static HouseItemViewModel Istance => new HouseItemViewModel();
 
         public String Name { get; set; }
+
+        public String Id { get; set; }
 
         public ICommand isClicked { get; set; }
 
@@ -25,7 +28,11 @@ namespace WpfAppLogin
         }
         public void onClick()
         {
-            MessageBox.Show("Clicked "+this.Name);
+            //MessageBox.Show("Clicked "+this.Name+this.Id);
+            Window centralina = new WpfAppCentralinaAllarmi.MainWindow(Int32.Parse(this.Id));
+            centralina.Show();
+            
+            
         }
     }
 }
