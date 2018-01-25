@@ -28,7 +28,7 @@
                         <!-- Buttons -->
                         <StackPanel Orientation="Horizontal">
                             <Button Style="{StaticResource IconButton}" Content="&#xf015;"/>
-                            <Button Style="{StaticResource IconButton}" Content="&#xf1da;"/>
+                            <Button Style="{StaticResource IconButton}" Content="&#xf1da;" Click=""/>
                             <!--Button Style="{StaticResource IconButton}" Content="X"/-->
 
                         </StackPanel>
